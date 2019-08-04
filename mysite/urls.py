@@ -18,17 +18,26 @@ from django.urls import path, include
 from users import views as user_views
 from blog import views
 from django.contrib.auth  import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
+#from blog.views import PostListView,PostDetailView,PostCreateView,PostUpdateView,PostDeleteView
 
 
 urlpatterns = [
-    path('',views.home,name='blog-home'),
-    path('blog/', include('blog.urls')),
-    path('about/',views.about,name='blog-about'),
-    #path('about/', views.about,name='blog-about'),
+    #path('',views.home,name='blog-home'),
+
+    path('', include('blog.urls')),
+    #path('detail/<int:pk>/',PostDetailView.as_view(),name='post-detail'),
+    #path('post/new/',PostCreateView.as_view(),name='post-create'),
+    #ath('post/update/<int:pk>/',PostUpdateView.as_view(),name='post-update'),
+    #path('post/delete/<int:pk>/',PostDeleteView.as_view(),name='post-delete'),
+    #path('',PostListView.as_view(),name='blog-home'),
+    path('profile/',user_views.profile, name='profile'),
     path('register/',user_views.register, name='register'),
     path('login/',auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/',auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
-
     path('admin/', admin.site.urls),
 
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
