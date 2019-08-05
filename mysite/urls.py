@@ -20,11 +20,9 @@ from blog import views
 from django.contrib.auth  import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
-#from blog.views import PostListView,PostDetailView,PostCreateView,PostUpdateView,PostDeleteView
 
 
 urlpatterns = [
-    #path('',views.home,name='blog-home'),
 
     path('', include('blog.urls')),
     #path('detail/<int:pk>/',PostDetailView.as_view(),name='post-detail'),
